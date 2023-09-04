@@ -32,7 +32,8 @@ router.post('/:quesitonid', filter, async(req, res) =>{
 router.post('/issolved/:quesitonid', filter, async(req, res) =>{
     try{
         console.log("IN")
-        const r = await submission.find({question:req.params.quesitonid, user:req.user.id})
+        const {iscorrect} = req.body
+        const r = await submission.find({question:req.params.quesitonid,iscorrect, user:req.user.id})
         res.json(r)
         console.log('OUT')
     }catch(error){

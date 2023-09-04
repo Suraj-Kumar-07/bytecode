@@ -53,6 +53,7 @@ function CodeEditor(props) {
                 }
             })
             // console.log(res.data);
+            console.log(res.data)
             if (res.data.length != 0) setIsSolved('Solved');
             // console.log("OUT")
         } catch (error) {

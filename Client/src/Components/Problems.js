@@ -77,7 +77,7 @@ function Problems(props) {
                                     </td>
                                     <td className="px-6 py-4">
                                             {
-                                               solvedProblem.filter(e=>e.question===problem._id).length>0? <div>Solved</div>: <div>Unsolved</div>
+                                               solvedProblem.filter(e=>e.question===problem._id).length>0? <div className='font-bold text-green-500'>Solved</div>: <div className='font-bold'>Unsolved</div>
                                             }
                                     </td>
                                 </tr>

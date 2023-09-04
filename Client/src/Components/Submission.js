@@ -61,8 +61,8 @@ function Submission(props) {
                                     submission.map((e) => {
                                             return (
                                             <tr className="bg-white border-y border-y-gray-700 dark:bg-gray-800">
-                                            <td className="px-6 py-4 font-semi-bold whitespace-nowrap text-green-600">
-                                                {e.verdict}
+                                            <td className="px-6 py-4 font-semibold ">
+                                                { e.verdict=='Accepted'  ? <div className=' text-green-600'>{e.verdict}</div> : <div className=' text-red-500'> {e.verdict} </div> }
                                             </td>
                                             <td className="px-6 py-4">
                                                 {e.language}
