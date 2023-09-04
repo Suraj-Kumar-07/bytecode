@@ -63,7 +63,7 @@ function Discuss(props) {
                 placeholder="Write a comment..." required onChange={e=>{setComment(e.target.value)}}></textarea>
             </div>
             <button type="button"
-              class="border py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800" onClick={handleOnClick}>
+              class="border py-2.5 px-4 text-xs font-medium text-center text-black dark:text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800" onClick={handleOnClick}>
               Post comment
             </button>
           </div>
