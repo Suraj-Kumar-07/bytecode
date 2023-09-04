@@ -16,7 +16,8 @@ import AddQuestion from './Components/AddQuestion';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
-  const HOST = 'http://localhost:5000' ;
+  // const HOST='http://localhost:5000'
+  const HOST = 'https://bytecode-07-prod.onrender.com' ;
   const notify = (msg) => toast(msg);
   return (
     <Router>
