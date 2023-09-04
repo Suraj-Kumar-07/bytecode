@@ -41,3 +41,34 @@
         color: white !important;
     }
 }
+
+h1{
+    margin: 10px !important;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    color:black !important;
+}
+h2{
+    margin: 10px !important;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    color:black !important;
+}
+h3{
+    font-size: medium !important;
+    margin: 10px !important;
+    font-weight: bold !important;
+    color:black !important;
+}
+h4{
+    font-size: small !important;
+    margin: 10px !important;
+    font-weight: bold !important;
+    color:black !important;
+}
+h5{
+    font-size: small !important;
+    margin: 10px !important;
+    font-weight: bold !important;
+    color:black !important;
+}

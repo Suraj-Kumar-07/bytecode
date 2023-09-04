@@ -19,15 +19,16 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 function CodeEditor(props) {
-let navigate=useNavigate()
+    let navigate = useNavigate()
     const [problem, setProblem] = useState({
         title: "",
         content: "",
         relatedtopics: "",
         difficulty: "",
-       testcaseinput:"",
-       testcaseoutput:""
+        testcaseinput: "",
+        testcaseoutput: ""
     })
+    const [customInput, setCustomInput] = useState("");
 
     let location = useLocation();
     const id = location.pathname.split('/')[3];
@@ -36,18 +37,34 @@ let navigate=useNavigate()
         try {
             const response = await axios.get(`${props.HOST}/problem/${id}`)
             setProblem(response.data)
-            console.log(problem);
+            // console.log(problem);
         } catch (error) {
-            console.log(error)
+            // console.log(error)
+        }
+    }
+
+    const [isSolved, setIsSolved] = useState('')
+    const getIsSolved = async () => {
+        try {
+            // console.log('IN')
+            const res = await axios.post(`${props.HOST}/submission/issolved/${id}`, { iscorrect: true }, {
+                headers: {
+                    'auth-token': Cookies.get('authtoken')
+                }
+            })
+            // console.log(res.data);
+            if (res.data.length != 0) setIsSolved('Solved');
+            // console.log("OUT")
+        } catch (error) {
+            // console.log(error);
         }
     }
 
     useEffect(() => {
         getProblem();
+        getIsSolved();
     }, [])
 
-
-    
     const [change, setChange] = useState('description')
     const [toggle, setToggle] = useState(false);
 
@@ -58,10 +75,9 @@ let navigate=useNavigate()
     const [suboutput, setsuboutput] = useState([])
     const [consol, setConsol] = useState(false)
     const [code, setCode] = useState("");
-    const [customInput, setCustomInput] = useState("");
+    
     const [outputDetails, setOutputDetails] = useState(null);
     const [processing, setProcessing] = useState(null);
-    
     const [processing1, setProcessing1] = useState(null);
     const [theme, setTheme] = useState("blackboard");
     const [language, setLanguage] = useState(languageOptions[0]);
@@ -73,14 +89,14 @@ let navigate=useNavigate()
     const [wrs, setWrs] = useState(false)
 
     const onSelectChange = (sl) => {
-        console.log("selected Option...", sl);
+        // console.log("selected Option...", sl);
         setLanguage(sl);
     };
 
     useEffect(() => {
         if (enterPress && ctrlPress) {
-            console.log("enterPress", enterPress);
-            console.log("ctrlPress", ctrlPress);
+            // console.log("enterPress", enterPress);
+            // console.log("ctrlPress", ctrlPress);
             handleRun();
         }
     }, [ctrlPress, enterPress]);
@@ -102,14 +118,18 @@ let navigate=useNavigate()
     const jkey = process.env.REACT_APP_JUDGEKEY_APIKEY ;
 
     const handleSubmitCode = async (e) => {
-        console.log(e)
+        if (!Cookies.get('authtoken')) {
+            props.notify('Please Login to use Editor')
+            return;
+        }
+        // console.log(e)
         setProcessing1(true);
         const formData = {
             language_id: language.id,
             // encode source code in base64
             source_code: btoa(code),
             stdin: btoa(problem.testcaseinput),
-            expected_output:btoa(problem.testcaseoutput)
+            expected_output: btoa(problem.testcaseoutput)
         };
         const options = {
             method: "POST",
@@ -124,11 +144,9 @@ let navigate=useNavigate()
             data: formData,
         };
 
-
-
         try {
             const response = await axios.request(options);
-            console.log("res.data", response.data);
+            // console.log("res.data", response.data);
             const token = response.data.token;
             const res = await checkStatus(token);
             return res;
@@ -136,14 +154,14 @@ let navigate=useNavigate()
             let error = err.response ? err.response.data : err;
             // get error status
             let status = err.response.status;
-            console.log("status", status);
+            // console.log("status", status);
             if (status === 429) {
-                console.log("too many requests", status);
+                // console.log("too many requests", status);
                 props.notify("too many requests")
                 setStatuscode(true)
             }
             setProcessing1(false);
-            console.log("catch block...", error);
+            // console.log("catch block...", error);
             props.notify(error)
         }
         return -1;
@@ -177,7 +195,7 @@ let navigate=useNavigate()
         axios
             .request(options)
             .then(function (response) {
-                console.log("res.data", response.data);
+                // console.log("res.data", response.data);
                 const token = response.data.token;
                 checkStatusc(token);
             })
@@ -185,18 +203,18 @@ let navigate=useNavigate()
                 let error = err.response ? err.response.data : err;
                 // get error status
                 let status = err.response.status;
-                console.log("status", status);
+                // console.log("status", status);
                 if (status === 429) {
-                    console.log("too many requests", status);
+                    // console.log("too many requests", status);
                     setStatuscode(true)
                     props.notify('too many requests')
                 }
                 setProcessing(false);
-                console.log("catch block...", error);
+                // console.log("catch block...", error);
                 props.notify(error)
             });
 
-        console.log(problem)
+        // console.log(problem)
     };
 
     const checkStatusc = async (token) => {
@@ -223,15 +241,12 @@ let navigate=useNavigate()
             } else {
                 setProcessing(false);
                 setOutputDetails(response.data);
-                // let arr=suboutput;
-                // arr.push(response.data);
-                // setsuboutput(arr);
-           
-                console.log("response.data", response.data);
+
+                // console.log("response.data", response.data);
                 return;
             }
         } catch (err) {
-            console.log("err", err);
+            // console.log("err", err);
             setProcessing(false);
             props.notify(err)
             // showErrorToast();
@@ -260,70 +275,65 @@ let navigate=useNavigate()
                 return;
             } else {
                 setProcessing1(false);
-                // setOutputDetails(response.data);
-                // let arr=suboutput;
-                // arr.push(response.data);
-                // setsuboutput(arr);
-            
-                console.log("response.data", response.data);
+
+                // console.log("response.data", response.data);
                 let correct = false;
-                if ( response.data.status.description === 'Accepted' ){
+                if (response.data.status.description === 'Accepted') {
                     correct = true;
                 }
                 const data = {
-                    verdict:response.data.status.description,
-                    time : response.data.time,
+                    verdict: response.data.status.description,
+                    time: response.data.time,
                     memory: response.data.memory,
-                    question:id,
-                    language:response.data.language.name,
-                    iscorrect:correct 
+                    question: id,
+                    language: response.data.language.name,
+                    iscorrect: correct
                 }
 
                 const res = await axios.post(`${props.HOST}/submission/createsubmission`, data, {
-                    headers :  {
-                        'auth-token' : Cookies.get('authtoken')
+                    headers: {
+                        'auth-token': Cookies.get('authtoken')
                     }
                 })
-                if(response.data.stdout){
-            console.log(statusId)
-             if(correct){
-                    props.notify("Accepted")
-                    setChange('submission')
+                if (response.data.stdout) {
+                    // console.log(statusId)
+                    if (correct) {
+                        props.notify("Accepted")
+                        setChange('submission')
+                    }
+                    else {
+                        props.notify("Wrong Answer")
+                    }
+
+                    // console.log(response.data)
+                    // setLoading(false);
                 }
-                else{
-                    props.notify("Wrong Answer")
+                else {
+                    // console.log(response.data.stdout,"hjgvyj")
+                    // console.log(statusId)
+                    if (response.data.stderr)
+                    // setStdo(atob(response.data.stderr))
+                    {
+                        props.notify(response.data.status.description)
+                    }
+                    else
+                        props.notify(response.data.status.description)
+                    // setLoading(false);
                 }
-               
-            console.log(response.data)
-            // setLoading(false);
-         }
-            else{
-            // console.log(response.data.stdout,"hjgvyj")
-            console.log(statusId)
-            if(response.data.stderr)
-            // setStdo(atob(response.data.stderr))
-        {
-            props.notify(response.data.status.description)
-        }
-           else
-           props.notify(response.data.status.description)
-            // setLoading(false);
-            }
 
 
-               
+
             }
         } catch (err) {
-            console.log("err", err);
+            // console.log("err", err);
             setProcessing1(false);
             props.notify(err)
-            // showErrorToast();
         }
     };
 
     function handleThemeChange(th) {
         const theme = th;
-        console.log("theme...", theme);
+        // console.log("theme...", theme);
 
         if (["light", "vs-dark"].includes(theme.value)) {
             setTheme(theme);
@@ -337,28 +347,6 @@ let navigate=useNavigate()
         );
     }, []);
 
-    // const showSuccessToast = (msg) => {
-    //     toast.success(msg || `Compiled Successfully!`, {
-    //         position: "top-right",
-    //         autoClose: 1000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //     });
-    // };
-    // const showErrorToast = (msg, timer) => {
-    //     toast.error(msg || `Something went wrong! Please try again.`, {
-    //         position: "top-right",
-    //         autoClose: timer ? timer : 1000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //     });
-    // };
 
     return (
         <>
@@ -376,16 +364,16 @@ let navigate=useNavigate()
                             change === 'description' ?
                                 <div >
                                     <div className="m-5">
-                                        <h1 className="mb-2 text-2xl font-semibold   text-gray-900 dark:text-white ">{problem.title}</h1>
+                                        <div className="mb-2 text-2xl font-semibold   text-gray-900 dark:text-white ">{problem.title}</div>
                                         <div className="flex gap-10 ">
                                             <span className="text-emerald-600 font-bold" >{problem.difficulty}</span>
-                                            <span className="text-emerald-600 font-bold">Solved</span>
+                                            <span className="text-emerald-600 font-bold">{isSolved}</span>
                                         </div>
                                         <div id='content' className="mt-4 dark:text-white">
                                             <div dangerouslySetInnerHTML={{ __html: problem.content }} />
                                         </div>
                                         <div className="mt-4 dark:text-white">
-                                            <h1 className="font-bold">Related topics:</h1>
+                                            <div className="font-bold">Related topics:</div>
                                             <div>
                                                 {problem.relatedtopics}
                                             </div>
@@ -397,7 +385,7 @@ let navigate=useNavigate()
 
 
                                             <div>
-                                                <button className="border dark:bg-slate-950 text-sm hover:bg-gray-400 text-gray-800 dark:text-white font-bold rounded   px-4 py-2 " onClick={handleOnConsole}>
+                                                <button className="border dark:bg-slate-950 text-sm hover:bg-gray-400 text-gray-100 dark:text-white font-bold rounded   px-4 py-2 " onClick={handleOnConsole}>
                                                     Console
                                                 </button>
                                             </div>
@@ -406,7 +394,7 @@ let navigate=useNavigate()
                                                     onClick={handleRun}
                                                     disabled={!code || processing}
                                                     className={classnames(
-                                                        "border dark:bg-slate-950 text-sm  hover:bg-gray-400 text-gray-800 dark:text-white font-bold rounded   px-4 py-2 ",
+                                                        "border dark:bg-slate-950 text-sm  hover:bg-gray-400 text-gray-100 dark:text-white font-bold rounded   px-4 py-2 ",
                                                         !code ? "opacity-100" : ""
                                                     )}
                                                 >
@@ -414,13 +402,13 @@ let navigate=useNavigate()
                                                 </button>
                                             </div>
                                             <div>
-                                                <button onClick={handleSubmitCode}  disabled={!code || processing1}     className={classnames(
-                                                        "border dark:bg-slate-950 text-sm  hover:bg-gray-400 text-gray-800 dark:text-white font-bold rounded   px-4 py-2 ",
-                                                        !code ? "opacity-100" : ""
-                                                    )}
+                                                <button onClick={handleSubmitCode} disabled={!code || processing1} className={classnames(
+                                                    "border dark:bg-slate-950 text-sm  hover:bg-gray-400 text-gray-100 dark:text-white font-bold rounded   px-4 py-2 ",
+                                                    !code ? "opacity-100" : ""
+                                                )}
                                                 >
                                                     {processing1 ? "Processing..." : "Submit"}
-                                                 
+
                                                 </button>
                                             </div>
 
@@ -430,7 +418,7 @@ let navigate=useNavigate()
                                             <div id='boxa' className=" fixed z-10 right-0 bottom-0 h-[50vh]  w-[50%] m-auto ">
                                                 <div className="w-[95%] h-full  mx-auto rounded-md grid grid-cols-2">
                                                     <div >
-                                                       
+
                                                         <div className="w-full h-full">
                                                             <CustomInput
                                                                 customInput={customInput}
@@ -449,7 +437,7 @@ let navigate=useNavigate()
                                     </div>
                                 </div>
                                 : change === 'discuss' ? <Discuss HOST={props.HOST} />
-                                    : <Submission HOST={props.HOST}/>
+                                    : <Submission HOST={props.HOST} />
 
                         }
 

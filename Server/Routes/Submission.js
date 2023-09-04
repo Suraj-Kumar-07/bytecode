@@ -29,7 +29,17 @@ router.post('/:quesitonid', filter, async(req, res) =>{
         res.status(500).send('Internal Server Error');
     }
 })
-
+router.post('/issolved/:quesitonid', filter, async(req, res) =>{
+    try{
+        console.log("IN")
+        const r = await submission.find({question:req.params.quesitonid, user:req.user.id})
+        res.json(r)
+        console.log('OUT')
+    }catch(error){
+        console.log(error)
+        res.status(500).send('Internal Server Error');
+    }
+})
 router.post('/api/getcorrect', filter, async(req, res)=>{
     try{
         console.log('hey')

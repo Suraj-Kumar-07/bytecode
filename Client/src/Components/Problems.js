@@ -45,9 +45,9 @@ function Problems(props) {
     return (
         <div className='mt-[9.8vh]'>
             <div className="px-[10vw] min-h-[90vh] py-[3vw] dark:bg-gray-900">
-                <h1 className="mb-[4vh] text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+                <div className="mb-[4vh] text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
                     We invest time in <span className='text-red-600 text-6xl font-extrabold'>Problems </span>
-                </h1>
+                </div>
                 <div className="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">

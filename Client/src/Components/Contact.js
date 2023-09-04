@@ -7,9 +7,9 @@ function Contact() {
                 <div class="mt-8 overflow-hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6 mr-2 bg-gray-100 dark:bg-gray-800 sm:rounded-lg">
-                            <h1 class="text-4xl sm:text-5xl text-gray-800 dark:text-white font-extrabold tracking-tight">
+                            <div class="text-4xl sm:text-5xl text-gray-800 dark:text-white font-extrabold tracking-tight">
                                 Get in touch
-                            </h1>
+                            </div>
                             <p class="text-normal text-lg sm:text-2xl font-medium text-gray-600 dark:text-gray-400 mt-2">
                                 Fill in the form to start a conversation
                             </p>

@@ -28,16 +28,16 @@ function PostPage(props) {
     }, [])
     return (
         <>
-            <section className='container mx-auto md:px-2 pt-16 pb-2 w-2/3'>
+            <section className=' m-auto w-[50vw] md:px-2 pt-16 pb-2 '>
                 <div className='flex justify-center'>
                     <div className='post pt-10'>
-                        <h1 className='font-bold text-4xl text-center pb-5'>
+                        <div className='font-bold text-4xl text-center pb-5'>
                            {article.heading}
-                        </h1>
-                        <h1 className='text-gray-500 pb-10 text-2xl text-center'> 
-                        {article.subheading}</h1>
-                        <p className='text-gray-500 text-xl '>
-                        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                        </div>
+                        <div className='text-gray-800 pb-10 text-2xl text-center'> 
+                        {article.subheading}</div>
+                        <p className='text-gray-700 font-mono text-xl '>
+                        <div className='w-[50vw] m-auto overflow-x-scroll' dangerouslySetInnerHTML={{ __html: article.content }} />
                         </p>
                         <div className='flex justify-between items-center'>
                         <div className='mt-10 text-gray-500 text-l'>Author:{article.author}</div> 

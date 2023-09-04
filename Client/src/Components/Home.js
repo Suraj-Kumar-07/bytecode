@@ -20,7 +20,7 @@ function Home(props) {
         const matchingTitles = dupArticle.filter( (e) => {
             return regex.test(e.heading)
         });
-        console.log(matchingTitles);
+        // console.log(matchingTitles);
         setArticles(matchingTitles);
     }
 
@@ -51,7 +51,7 @@ function Home(props) {
                 </div>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
                     <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                        <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog</h2>
+                        <div className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog</div>
                         <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">We use an agile approach to test assumptions and connect with the needs of your audience early and often.</p>
                     </div>
                     <div className="grid gap-8 ">
@@ -66,7 +66,7 @@ function Home(props) {
                                             </span>
                                             <span className="text-sm">{new Date(e.createdAt).toDateString()}</span>
                                         </div>
-                                        <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><Link to={`blog/${e._id}`}>{e.heading}</Link></h2>
+                                        <div className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><Link to={`blog/${e._id}`}>{e.heading}</Link></div>
                                         <p className="mb-5 font-light text-gray-500 dark:text-gray-400">{e.subheading}</p>
                                         <div className="flex justify-between items-center">
                                             <div className="flex items-center space-x-4">
