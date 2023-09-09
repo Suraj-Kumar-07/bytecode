@@ -24,6 +24,8 @@ function Signup(props) {
     const handleLoginWithGoogle = async () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
+
+
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
@@ -44,7 +46,17 @@ function Signup(props) {
 
                 const res=await axios.post(`${props.HOST}/auth/createuser`,data);
                 console.log(res.data)
-                
+                if ( res.data.mark ){
+                    console.log(data)
+                    const res=await axios.post(`${props.HOST}/auth/login`,data);
+                    Cookies.set('dp', profile_pic)
+                    Cookies.set('email', user_email)
+                    Cookies.set('name', user_name)
+                    Cookies.set('authtoken',res.data.authToken,{ expires: 365 })
+                    // props.setUserAuthentication(true)
+                    navigate('/')
+                    return
+                }
                 Cookies.set('dp', profile_pic)
                 Cookies.set('email', user_email)
                 Cookies.set('name', user_name)
@@ -87,8 +99,6 @@ function Signup(props) {
 
             const res=await axios.post(`${props.HOST}/auth/createuser`,data);
             console.log(res.data)
-            
-            
             Cookies.set('dp', profile_pic)
             Cookies.set('email', user_email)
             Cookies.set('name', user_name)

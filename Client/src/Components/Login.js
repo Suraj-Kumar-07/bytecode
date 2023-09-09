@@ -101,7 +101,7 @@ function Login(props) {
                     <button className="bg-slate-500 hover:bg-slate-700 text-white text-base rounded-lg py-2.5 px-5 transition-colors w-full text-[19px]" onClick={handleLogin}>Log In</button>
                 </div>
                 <p className="text-center mt-3 text-[14px]">Forgot password?
-                    <Link to="/signup" className="text-gray-600">Reset Password</Link>
+                    <Link to="/forgotpassword" className="text-gray-600">Reset Password</Link>
                 </p>
                 <p className="text-center mt-3 text-[14px]">By clicking continue, you agree to our
                     <a href="/terms" className="text-gray-600">Terms of Service</a> and <a href="/privacy" className="text-gray-600">Privacy Policy</a>.

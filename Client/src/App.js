@@ -15,9 +15,10 @@ import PostPage from './Components/PostPage';
 import AddQuestion from './Components/AddQuestion';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Resetpassword from './Components/Resetpassword';
 function App() {
-  // const HOST='http://localhost:5000'
-  const HOST = 'https://bytecode-07-prod.onrender.com' ;
+  const HOST='http://localhost:5000'
+  // const HOST = 'https://bytecode-07-prod.onrender.com' ;
   const notify = (msg) => toast(msg);
   return (
     <Router>
@@ -36,6 +37,7 @@ function App() {
         <Route exact path='/blog/:id' element={<PostPage notify={notify} HOST={HOST}/>}/>
         <Route exact path='/createblog' element={<CreatePost notify={notify} HOST={HOST}/>}/>
         <Route exact path='/addquestion' element={<AddQuestion notify={notify} HOST={HOST}/>}/>
+        <Route exact path='/forgotpassword' element={<Resetpassword notify={notify}/>}/>
       </Routes>
       <Footer/>
 
