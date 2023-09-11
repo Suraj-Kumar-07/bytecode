@@ -53,44 +53,50 @@ function Navbar() {
                                                 <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">login</button>
                                             </div>
                                         </Link>
-                                        <div onClick={()=>setBurger(!burger)} class="flex md:order-2">
-                                            <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-                                                <span class="sr-only">Open main menu</span>
-                                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                                        <div onClick={()=>setBurger(!burger)} className="flex md:order-2">
+                                            <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+                                                <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
                                                 </svg>
                                             </button>
                                         </div>
                                     </div>
                                     :
-                                    <div className=" md:order-2" >
+                                    <div className=" flex gap-2 md:order-2" >
                                         <div >
-                                            <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" onClick={handleToggle} >
-                                                <img class="w-9 h-9 rounded-full" src={Cookies.get('dp')} alt="user photo" />
+                                            <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" onClick={handleToggle} >
+                                                <img className="w-9 h-9 rounded-full" src={Cookies.get('dp')} alt="user photo" />
                                             </button>
                                         </div>
-
+                                        <div onClick={()=>setBurger(!burger)} className="flex md:order-2">
+                                            <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+                                                <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                         {
                                             toggle &&
                                             <>
-                                                <div class="z-50 w-[10vw] absolute my-4  text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-                                                    <div class="px-4 py-3">
-                                                        <span class="block text-sm text-gray-900 dark:text-white">{Cookies.get('name')}</span>
-                                                        <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{Cookies.get('email')}</span>
+                                                <div className="z-50 w-[10vw] absolute mt-10 mr-5 min-w-full text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                                                    <div className="px-4 py-3">
+                                                        <span className="block text-sm text-gray-900 dark:text-white">{Cookies.get('name')}</span>
+                                                        <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">{Cookies.get('email')}</span>
                                                     </div>
-                                                    <ul class="py-2" >
+                                                    <ul className="py-2" >
                                                         <li>
-                                                            <div class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={handleCreateBlog}>Create Blog</div>
+                                                            <div className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={handleCreateBlog}>Create Blog</div>
                                                         </li>
                                                     </ul>
-                                                    <ul class="py-2" >
+                                                    <ul className="py-2" >
                                                         <li>
-                                                            <div class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={handleSignout}>Sign out</div>
+                                                            <div className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={handleSignout}>Sign out</div>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </>
                                         }
+                                       
                                     </div>
 
                                 }
