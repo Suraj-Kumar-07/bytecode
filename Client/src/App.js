@@ -17,8 +17,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Resetpassword from './Components/Resetpassword';
 function App() {
-  const HOST='http://localhost:5000'
-  // const HOST = 'https://bytecode-07-prod.onrender.com' ;
+  // const HOST='http://localhost:5000'
+  const HOST = 'https://bytecode-07-prod.onrender.com' ;
   const notify = (msg) => toast(msg);
   return (
     <Router>
